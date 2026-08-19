@@ -98,7 +98,9 @@ Item {
   }
 
   function commandFor(args) {
-    var command = ["python3", helperPath]
+    // System Python: a version manager's python3 (mise, pyenv, uv) may be
+    // built without Bluetooth socket support.
+    var command = ["/usr/bin/python3", helperPath]
     if (configuredAddress !== "") command.push("--device", configuredAddress)
     for (var i = 0; i < args.length; i++) command.push(args[i])
     return command

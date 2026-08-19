@@ -1,5 +1,5 @@
-#!/usr/bin/env python3
-"""Small, dependency-free RFCOMM client for Nothing Ear devices.
+#!/usr/bin/python3
+"""Small, dependency-free RFCOMM client for Nothing Ear and Headphone devices.
 
 The Nothing X protocol is a binary protocol on RFCOMM channel 15.  This helper
 is intentionally short-lived: the Omarchy widget starts it only when it needs
