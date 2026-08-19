@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "id": "io.github.r-witz.nothing-ear",
+  "name": "Nothing Ear",
+  "version": "1.0.0",
+  "author": "r-witz",
+  "license": "MIT",
+  "description": "Nothing Ear in the Omarchy bar: per-earbud and case battery, noise control, codec selection, and low-latency mode.",
+  "kinds": [
+    "bar-widget"
+  ],
+  "entryPoints": {
+    "barWidget": "Panel.qml"
+  },
+  "barWidget": {
+    "displayName": "Nothing Ear",
+    "description": "Per-earbud and case battery, noise control, host-compatible codec selection, and low-latency mode for Nothing Ear earbuds.",
+    "category": "Audio",
+    "allowMultiple": false,
+    "defaultSection": "right",
+    "defaults": {
+      "hideWhenDisconnected": true,
+      "deviceAddress": "",
+      "helperPath": ""
+    },
+    "schema": [
+      {
+        "key": "hideWhenDisconnected",
+        "type": "boolean",
+        "label": "Hide the icon when Nothing Ear is disconnected",
+        "defaultValue": true
+      },
+      {
+        "key": "deviceAddress",
+        "type": "string",
+        "label": "Bluetooth address (optional)",
+        "description": "Leave empty to use the connected Nothing/Ear device found by bluetoothctl.",
+        "defaultValue": ""
+      },
+      {
+        "key": "helperPath",
+        "type": "path",
+        "label": "Path to the Nothing Ear helper",
+        "description": "Leave empty to use the helper shipped with this plugin.",
+        "defaultValue": ""
+      }
+    ]
+  }
+}
