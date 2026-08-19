@@ -287,9 +287,12 @@ Panel {
               visible: ear.protocol
               width: parent.width
               spacing: Style.spacing.md
-              BatteryRow { width: parent.width; label: "Left"; bud: ear.leftBud }
-              BatteryRow { width: parent.width; label: "Right"; bud: ear.rightBud }
-              BatteryRow { width: parent.width; label: "Case"; bud: ear.caseBattery }
+              // Headphones are one unit with one battery; earbuds report
+              // left, right, and case.
+              BatteryRow { visible: ear.headsetBattery.available; width: parent.width; label: "Headset"; bud: ear.headsetBattery }
+              BatteryRow { visible: !ear.headsetBattery.available; width: parent.width; label: "Left"; bud: ear.leftBud }
+              BatteryRow { visible: !ear.headsetBattery.available; width: parent.width; label: "Right"; bud: ear.rightBud }
+              BatteryRow { visible: !ear.headsetBattery.available; width: parent.width; label: "Case"; bud: ear.caseBattery }
             }
 
             BatteryRow {
@@ -373,8 +376,8 @@ Panel {
             visible: ear.connected && !ear.protocol
             width: parent.width
             text: ear.aggregateBattery !== Model.LEVEL_UNKNOWN
-              ? "Bluetooth reports one headset percentage. Open the panel again when the Nothing control channel is available for per-bud battery and noise controls."
-              : "The earbuds are connected, but their Nothing control channel did not answer."
+              ? "Bluetooth reports one overall percentage. Open the panel again when the Nothing control channel is available for battery details and noise controls."
+              : "The device is connected, but its Nothing control channel did not answer."
             color: root.dim
             font.family: root.fontFamily
             font.pixelSize: Style.font.body
@@ -386,7 +389,7 @@ Panel {
             visible: !ear.connected
             width: parent.width
             text: ear.deviceKnown
-              ? "Connect your Nothing Ear earbuds to see battery and listening controls."
+              ? "Connect your Nothing device to see battery and listening controls."
               : "Pair a Nothing Ear device, then open this panel again."
             color: root.dim
             font.family: root.fontFamily

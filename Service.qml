@@ -16,6 +16,7 @@ Item {
   property var leftBud: Model.defaultComponent()
   property var rightBud: Model.defaultComponent()
   property var caseBattery: Model.defaultComponent()
+  property var headsetBattery: Model.defaultComponent()
   property int aggregateBattery: Model.LEVEL_UNKNOWN
   property bool noiseAvailable: false
   property string noiseMode: "unknown"
@@ -60,7 +61,8 @@ Item {
   // block one, it only delays it, so reading is deliberately not part of this.
   readonly property bool applying: actionProcess.running || queuedAction !== null
   readonly property bool hasBattery: leftBud.available || rightBud.available
-    || caseBattery.available || aggregateBattery !== Model.LEVEL_UNKNOWN
+    || caseBattery.available || headsetBattery.available
+    || aggregateBattery !== Model.LEVEL_UNKNOWN
   readonly property bool hasControls: connected && protocol
   readonly property string activeAncKey: Model.currentAncKey(noiseMode, ancLevel)
   // The row whose spinner is showing, "" when nothing is in flight.
@@ -227,6 +229,7 @@ Item {
     leftBud = status.left
     rightBud = status.right
     caseBattery = status.caseBattery
+    headsetBattery = status.headset
     noiseAvailable = status.noiseAvailable
     noiseMode = status.noiseMode
     ancLevel = status.ancLevel
@@ -243,6 +246,7 @@ Item {
     leftBud = Model.defaultComponent()
     rightBud = Model.defaultComponent()
     caseBattery = Model.defaultComponent()
+    headsetBattery = Model.defaultComponent()
     noiseAvailable = false
     noiseMode = "unknown"
     ancLevel = Model.LEVEL_UNKNOWN
@@ -351,7 +355,7 @@ Item {
         root.lastError = ""
       } else {
         root.revertPending()
-        root.lastError = Model.errorText(stderr || stdout || "The earbuds rejected the change")
+        root.lastError = Model.errorText(stderr || stdout || "The device rejected the change")
       }
       settleTimer.restart()
     }

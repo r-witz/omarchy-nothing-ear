@@ -266,8 +266,8 @@ def parse_components(payload: bytes) -> dict[str, dict[str, object]]:
         elif component == 4:
             result["case"] = entry
         elif component == 6:
-            result["left"] = dict(entry)
-            result["right"] = dict(entry)
+            # One battery for the whole device: Nothing Headphone (1).
+            result["headset"] = entry
     return result
 
 
@@ -475,6 +475,7 @@ def snapshot(device: dict[str, str] | None) -> dict[str, object]:
         "left": unknown_component(),
         "right": unknown_component(),
         "case": unknown_component(),
+        "headset": unknown_component(),
         "aggregate": aggregate_battery(address) if address else -1,
     }
     noise: dict[str, object] = {"available": False, "mode": "unknown", "level": -1}
@@ -568,7 +569,7 @@ def control(device: dict[str, str], action: str, value: str) -> tuple[bool, str]
         return False, f"Could not open Nothing control channel: {exc.strerror or exc}"
     try:
         if request(sock, FrameParser(), command, DIR_SET, payload) is None:
-            return False, "The earbuds did not acknowledge the change"
+            return False, "The device did not acknowledge the change"
         # BlueZ can keep the RFCOMM channel marked busy for a short moment
         # after the final ACK. Let the controller finish before closing the
         # short-lived session; this also makes rapid bar clicks reliable.
