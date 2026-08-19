@@ -250,7 +250,7 @@ Panel {
             title: ear.deviceName !== "" ? ear.deviceName : "Nothing Ear"
             meta: ear.connected
               ? (ear.protocol ? root.heroPhrase : "Bluetooth connected")
-              : (ear.deviceKnown ? "Not connected" : "Find a paired Nothing Ear")
+              : (ear.deviceKnown ? "Not connected" : "Find a paired Nothing device")
             foreground: root.foreground
             fontFamily: root.fontFamily
             iconOpacity: ear.connected ? 1.0 : 0.5
@@ -288,11 +288,12 @@ Panel {
               width: parent.width
               spacing: Style.spacing.md
               // Headphones are one unit with one battery; earbuds report
-              // left, right, and case.
+              // left, right, and case. A case row stays whenever a case
+              // reports, whichever form the device takes.
               BatteryRow { visible: ear.headsetBattery.available; width: parent.width; label: "Headset"; bud: ear.headsetBattery }
               BatteryRow { visible: !ear.headsetBattery.available; width: parent.width; label: "Left"; bud: ear.leftBud }
               BatteryRow { visible: !ear.headsetBattery.available; width: parent.width; label: "Right"; bud: ear.rightBud }
-              BatteryRow { visible: !ear.headsetBattery.available; width: parent.width; label: "Case"; bud: ear.caseBattery }
+              BatteryRow { visible: !ear.headsetBattery.available || ear.caseBattery.available; width: parent.width; label: "Case"; bud: ear.caseBattery }
             }
 
             BatteryRow {
@@ -390,7 +391,7 @@ Panel {
             width: parent.width
             text: ear.deviceKnown
               ? "Connect your Nothing device to see battery and listening controls."
-              : "Pair a Nothing Ear device, then open this panel again."
+              : "Pair a Nothing device, then open this panel again."
             color: root.dim
             font.family: root.fontFamily
             font.pixelSize: Style.font.body

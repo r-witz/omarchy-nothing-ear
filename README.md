@@ -1,9 +1,9 @@
 # Nothing Ear for Omarchy
 
 An Omarchy bar widget for Nothing Ear earbuds and Nothing Headphone (1):
-battery, noise control, audio codec, and low latency mode. It speaks the Nothing X protocol over Bluetooth
-RFCOMM through a small Python helper, so there is no daemon and no dependencies
-beyond `bluetoothctl` and `pactl`.
+battery, noise control, audio codec, and low latency mode. It speaks the
+Nothing X protocol over Bluetooth RFCOMM through a small Python helper, so
+there is no daemon and no dependencies beyond `bluetoothctl` and `pactl`.
 
 <p align="center">
   <img src="docs/screenshot.png" width="420"
@@ -17,7 +17,7 @@ beyond `bluetoothctl` and `pactl`.
 - Noise control: Off, Transparency, Adaptive, Low, Medium, High
 - Low latency mode on earbuds that expose it
 - Audio codec, limited to what your laptop can actually negotiate
-- Falls back to the single Bluetooth percentage if the earbuds' control channel
+- Falls back to the single Bluetooth percentage if the Nothing control channel
   is busy
 
 The case only reports while it is open. Once it closes, the last reading stays

@@ -549,7 +549,7 @@ def snapshot(device: dict[str, str] | None) -> dict[str, object]:
 def control(device: dict[str, str], action: str, value: str) -> tuple[bool, str]:
     address = device["address"]
     if not is_connected(address):
-        return False, "Nothing Ear is not connected"
+        return False, "The device is not connected"
     if action == "codec":
         # Codec selection is a host-side PipeWire operation. It is deliberately
         # separate from the vendor codec flag: the host is the authority on
@@ -605,7 +605,7 @@ def main() -> int:
         return 0
 
     if not device:
-        emit({"ok": False, "error": "No paired Nothing Ear device found"})
+        emit({"ok": False, "error": "No paired Nothing device found"})
         return 1
 
     if args.command == "set-anc":
