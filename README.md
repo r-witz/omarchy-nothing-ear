@@ -1,9 +1,9 @@
 # Nothing Ear for Omarchy
 
-An Omarchy bar widget for Nothing Ear earbuds: battery, noise control, audio
-codec, and low latency mode. It speaks the Nothing X protocol over Bluetooth
-RFCOMM through a small Python helper, so there is no daemon and no dependencies
-beyond `bluetoothctl` and `pactl`.
+An Omarchy bar widget for Nothing Ear earbuds and Nothing Headphone (1):
+battery, noise control, audio codec, and low latency mode. It speaks the
+Nothing X protocol over Bluetooth RFCOMM through a small Python helper, so
+there is no daemon and no dependencies beyond `bluetoothctl` and `pactl`.
 
 <p align="center">
   <img src="docs/screenshot.png" width="420"
@@ -12,11 +12,12 @@ beyond `bluetoothctl` and `pactl`.
 
 ## Features
 
-- Left, right, and case battery, with a charging pulse on the meter
+- Left, right, and case battery for earbuds, one headset battery for
+  Headphone (1), with a charging pulse on the meter
 - Noise control: Off, Transparency, Adaptive, Low, Medium, High
 - Low latency mode on earbuds that expose it
 - Audio codec, limited to what your laptop can actually negotiate
-- Falls back to the single Bluetooth percentage if the earbuds' control channel
+- Falls back to the single Bluetooth percentage if the Nothing control channel
   is busy
 
 The case only reports while it is open. Once it closes, the last reading stays
@@ -29,7 +30,7 @@ omarchy plugin add https://github.com/r-witz/omarchy-nothing-ear --enable
 omarchy bar move io.github.r-witz.nothing-ear
 ```
 
-Pair the earbuds through the normal Bluetooth panel first. The helper picks the
+Pair the device through the normal Bluetooth panel first. The helper picks the
 first connected device whose name contains `Nothing`, `Ear`, or `CMF`.
 
 ## Settings

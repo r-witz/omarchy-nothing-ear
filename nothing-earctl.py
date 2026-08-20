@@ -1,5 +1,5 @@
-#!/usr/bin/env python3
-"""Small, dependency-free RFCOMM client for Nothing Ear devices.
+#!/usr/bin/python3
+"""Small, dependency-free RFCOMM client for Nothing Ear and Headphone devices.
 
 The Nothing X protocol is a binary protocol on RFCOMM channel 15.  This helper
 is intentionally short-lived: the Omarchy widget starts it only when it needs
@@ -266,8 +266,8 @@ def parse_components(payload: bytes) -> dict[str, dict[str, object]]:
         elif component == 4:
             result["case"] = entry
         elif component == 6:
-            result["left"] = dict(entry)
-            result["right"] = dict(entry)
+            # One battery for the whole device: Nothing Headphone (1).
+            result["headset"] = entry
     return result
 
 
@@ -475,6 +475,7 @@ def snapshot(device: dict[str, str] | None) -> dict[str, object]:
         "left": unknown_component(),
         "right": unknown_component(),
         "case": unknown_component(),
+        "headset": unknown_component(),
         "aggregate": aggregate_battery(address) if address else -1,
     }
     noise: dict[str, object] = {"available": False, "mode": "unknown", "level": -1}
@@ -548,7 +549,7 @@ def snapshot(device: dict[str, str] | None) -> dict[str, object]:
 def control(device: dict[str, str], action: str, value: str) -> tuple[bool, str]:
     address = device["address"]
     if not is_connected(address):
-        return False, "Nothing Ear is not connected"
+        return False, "The device is not connected"
     if action == "codec":
         # Codec selection is a host-side PipeWire operation. It is deliberately
         # separate from the vendor codec flag: the host is the authority on
@@ -568,7 +569,7 @@ def control(device: dict[str, str], action: str, value: str) -> tuple[bool, str]
         return False, f"Could not open Nothing control channel: {exc.strerror or exc}"
     try:
         if request(sock, FrameParser(), command, DIR_SET, payload) is None:
-            return False, "The earbuds did not acknowledge the change"
+            return False, "The device did not acknowledge the change"
         # BlueZ can keep the RFCOMM channel marked busy for a short moment
         # after the final ACK. Let the controller finish before closing the
         # short-lived session; this also makes rapid bar clicks reliable.
@@ -604,7 +605,7 @@ def main() -> int:
         return 0
 
     if not device:
-        emit({"ok": False, "error": "No paired Nothing Ear device found"})
+        emit({"ok": False, "error": "No paired Nothing device found"})
         return 1
 
     if args.command == "set-anc":

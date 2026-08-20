@@ -38,6 +38,9 @@ function defaultStatus() {
     left: defaultComponent(),
     right: defaultComponent(),
     caseBattery: defaultComponent(),
+    // One battery for the whole device (Nothing Headphone (1)); left, right
+    // and case stay unavailable when it is set.
+    headset: defaultComponent(),
     aggregate: LEVEL_UNKNOWN,
     noiseAvailable: false,
     noiseMode: "unknown",
@@ -109,6 +112,7 @@ function parseStatus(raw) {
   status.left = component(battery.left)
   status.right = component(battery.right)
   status.caseBattery = component(battery.case)
+  status.headset = component(battery.headset)
   status.aggregate = integer(battery.aggregate, LEVEL_UNKNOWN)
 
   var noise = parsed.noise && typeof parsed.noise === "object" ? parsed.noise : ({})

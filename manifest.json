@@ -5,7 +5,7 @@
   "version": "1.0.0",
   "author": "r-witz",
   "license": "MIT",
-  "description": "Nothing Ear in the Omarchy bar: per-earbud and case battery, noise control, codec selection, and low-latency mode.",
+  "description": "Nothing Ear and Headphone (1) in the Omarchy bar: battery, noise control, codec selection, and low-latency mode.",
   "kinds": [
     "bar-widget"
   ],
@@ -14,7 +14,7 @@
   },
   "barWidget": {
     "displayName": "Nothing Ear",
-    "description": "Per-earbud and case battery, noise control, host-compatible codec selection, and low-latency mode for Nothing Ear earbuds.",
+    "description": "Battery, noise control, host-compatible codec selection, and low-latency mode for Nothing Ear earbuds and Nothing Headphone (1).",
     "category": "Audio",
     "allowMultiple": false,
     "defaultSection": "right",
