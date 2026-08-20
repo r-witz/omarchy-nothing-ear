@@ -247,7 +247,7 @@ Panel {
           PanelHero {
             id: hero
             width: parent.width
-            title: ear.deviceName !== "" ? ear.deviceName : "Nothing Ear"
+            title: ear.deviceName !== "" ? ear.deviceName : "Nothing Audio"
             meta: ear.connected
               ? (ear.protocol ? root.heroPhrase : "Bluetooth connected")
               : (ear.deviceKnown ? "Not connected" : "Find a paired Nothing device")

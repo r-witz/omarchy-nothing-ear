@@ -1,13 +1,14 @@
-# Nothing Ear for Omarchy
+# Nothing Audio for Omarchy
 
-An Omarchy bar widget for Nothing Ear earbuds and Nothing Headphone (1):
-battery, noise control, audio codec, and low latency mode. It speaks the
-Nothing X protocol over Bluetooth RFCOMM through a small Python helper, so
-there is no daemon and no dependencies beyond `bluetoothctl` and `pactl`.
+An Omarchy bar widget for Nothing earbuds and headphones: battery, noise
+control, audio codec, and low latency mode. Tested on Nothing Ear and Nothing
+Headphone (1). It speaks the Nothing X protocol over Bluetooth RFCOMM through a
+small Python helper, so there is no daemon and no dependencies beyond
+`bluetoothctl` and `pactl`.
 
 <p align="center">
   <img src="docs/screenshot.png" width="420"
-       alt="The Nothing Ear panel: per-earbud and case battery, noise-control chips with Adaptive selected, codec chips with LDAC selected, and a low-latency toggle">
+       alt="The Nothing Audio panel: per-earbud and case battery, noise-control chips with Adaptive selected, codec chips with LDAC selected, and a low-latency toggle">
 </p>
 
 ## Features
@@ -15,7 +16,7 @@ there is no daemon and no dependencies beyond `bluetoothctl` and `pactl`.
 - Left, right, and case battery for earbuds, one headset battery for
   Headphone (1), with a charging pulse on the meter
 - Noise control: Off, Transparency, Adaptive, Low, Medium, High
-- Low latency mode on earbuds that expose it
+- Low latency mode on devices that expose it
 - Audio codec, limited to what your laptop can actually negotiate
 - Falls back to the single Bluetooth percentage if the Nothing control channel
   is busy
@@ -37,7 +38,7 @@ first connected device whose name contains `Nothing`, `Ear`, or `CMF`.
 
 | Key | Default | What it does |
 | --- | --- | --- |
-| `hideWhenDisconnected` | `true` | Hide the icon while the earbuds are away. An error keeps it visible. |
+| `hideWhenDisconnected` | `true` | Hide the icon while the device is away. An error keeps it visible. |
 | `deviceAddress` | `""` | Pin a Bluetooth address, for when several matching devices are paired. |
 | `helperPath` | `""` | Use a different `nothing-earctl.py`. Empty uses the bundled one. |
 
@@ -68,7 +69,7 @@ Codec options come from PipeWire's real A2DP card profiles, so a codec your
 laptop cannot negotiate never appears. Switching one may briefly interrupt audio
 while PipeWire renegotiates the stream.
 
-The earbuds report a vendor codec mode of their own. The plugin reads it for
+The device reports a vendor codec mode of its own. The plugin reads it for
 diagnostics but never writes it, because the firmware can acknowledge a value
 without applying it. The host side is what actually changes the stream.
 
@@ -85,7 +86,7 @@ runs for the length of one call:
 ```
 
 Each call prints one line of JSON. `status` always prints a full snapshot and
-exits 0; the `connected` and `protocol` fields say which state the earbuds are
+exits 0; the `connected` and `protocol` fields say which state the device is
 in.
 
 ## Remove
@@ -97,5 +98,6 @@ rm -rf "${XDG_STATE_HOME:-$HOME/.local/state}/nothing-ear"
 
 ## License
 
-MIT. Nothing Ear and Nothing X are trademarks of Nothing Technology Limited.
+MIT. Nothing, Nothing Ear, and Nothing X are trademarks of Nothing Technology
+Limited.
 This project is unofficial.
