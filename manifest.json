@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
   "id": "io.github.r-witz.nothing-ear",
-  "name": "Nothing Ear",
-  "version": "1.0.0",
+  "name": "Nothing Audio",
+  "version": "1.1.0",
   "author": "r-witz",
   "license": "MIT",
-  "description": "Nothing Ear and Headphone (1) in the Omarchy bar: battery, noise control, codec selection, and low-latency mode.",
+  "description": "Nothing earbuds and headphones in the Omarchy bar: battery, noise control, codec selection, and low-latency mode.",
   "kinds": [
     "bar-widget"
   ],
@@ -13,8 +13,8 @@
     "barWidget": "Panel.qml"
   },
   "barWidget": {
-    "displayName": "Nothing Ear",
-    "description": "Battery, noise control, host-compatible codec selection, and low-latency mode for Nothing Ear earbuds and Nothing Headphone (1).",
+    "displayName": "Nothing Audio",
+    "description": "Battery, noise control, host-compatible codec selection, and low-latency mode for Nothing earbuds and headphones.",
     "category": "Audio",
     "allowMultiple": false,
     "defaultSection": "right",
@@ -27,7 +27,7 @@
       {
         "key": "hideWhenDisconnected",
         "type": "boolean",
-        "label": "Hide the icon when Nothing Ear is disconnected",
+        "label": "Hide the icon when the device is disconnected",
         "defaultValue": true
       },
       {
@@ -40,7 +40,7 @@
       {
         "key": "helperPath",
         "type": "path",
-        "label": "Path to the Nothing Ear helper",
+        "label": "Path to the Nothing Audio helper",
         "description": "Leave empty to use the helper shipped with this plugin.",
         "defaultValue": ""
       }

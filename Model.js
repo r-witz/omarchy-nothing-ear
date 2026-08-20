@@ -78,7 +78,7 @@ function parseStatus(raw) {
   var status = defaultStatus()
   var text = String(raw || "").trim()
   if (text === "") {
-    status.lastError = "The Nothing Ear helper returned no status"
+    status.lastError = "The Nothing Audio helper returned no status"
     return status
   }
 
@@ -86,18 +86,18 @@ function parseStatus(raw) {
   try {
     parsed = JSON.parse(text)
   } catch (e) {
-    status.lastError = "Could not read the Nothing Ear status"
+    status.lastError = "Could not read the Nothing Audio status"
     return status
   }
   if (!parsed || typeof parsed !== "object") {
-    status.lastError = "The Nothing Ear helper returned an invalid status"
+    status.lastError = "The Nothing Audio helper returned an invalid status"
     return status
   }
 
   var version = integer(parsed.schema_version, 0)
   if (version > SUPPORTED_SCHEMA) {
     status.schemaTooNew = true
-    status.lastError = "Nothing Ear status schema " + version + " is newer than this plugin"
+    status.lastError = "Nothing Audio status schema " + version + " is newer than this plugin"
     return status
   }
 

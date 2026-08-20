@@ -134,7 +134,7 @@ def choose_device(requested: str = "") -> dict[str, str] | None:
         # A configured address is still useful if bluetoothctl has temporarily
         # omitted it from `devices`.
         if ADDRESS_RE.match(requested):
-            return {"address": requested.upper(), "name": "Nothing Ear"}
+            return {"address": requested.upper(), "name": "Nothing device"}
         return None
 
     connected = [d for d in devices if looks_like_nothing(d["name"]) and is_connected(d["address"])]
@@ -470,7 +470,7 @@ def snapshot(device: dict[str, str] | None) -> dict[str, object]:
     only the things that genuinely went wrong.
     """
     address = device["address"] if device else ""
-    name = (device.get("name") if device else "") or ("Nothing Ear" if address else "")
+    name = (device.get("name") if device else "") or ("Nothing device" if address else "")
     battery: dict[str, object] = {
         "left": unknown_component(),
         "right": unknown_component(),
@@ -587,7 +587,7 @@ def emit(data: object) -> None:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Read and control Nothing Ear over Bluetooth")
+    parser = argparse.ArgumentParser(description="Read and control Nothing earbuds and headphones over Bluetooth")
     parser.add_argument("--device", default="", help="Bluetooth address or name")
     sub = parser.add_subparsers(dest="command", required=True)
     sub.add_parser("status")

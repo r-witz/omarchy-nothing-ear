@@ -259,7 +259,7 @@ Item {
   // A helper that cannot run says nothing about the earbuds, so the reading on
   // screen stands and only the error is new.
   function failedStatus(message) {
-    lastError = Model.errorText(message || "Could not query Nothing Ear")
+    lastError = Model.errorText(message || "Could not query the Nothing device")
   }
 
   // A status read holds the control channel for well under a second, but that is
