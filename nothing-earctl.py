@@ -183,12 +183,6 @@ class FrameParser:
             raw = bytes(self.buffer[:total])
             del self.buffer[:total]
             payload = raw[8 : 8 + length]
-            if crc_size:
-                received = struct.unpack_from("<H", raw, 8 + length)[0]
-                if received != crc16(raw[: 8 + length]):
-                    # A bad frame cannot be trusted. Continue looking for the
-                    # next SOF rather than making the whole snapshot fail.
-                    continue
             # Responses encode the direction in the high byte; the low command
             # byte is shared by GET, SET, response and unsolicited events.
             yield Frame(command & 0xFF, (command >> 8) & 0xFF, payload)
