@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "io.github.r-witz.nothing-ear",
   "name": "Nothing Audio",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "author": "r-witz",
   "license": "MIT",
   "description": "Nothing earbuds and headphones in the Omarchy bar: battery, noise control, codec selection, and low-latency mode.",
