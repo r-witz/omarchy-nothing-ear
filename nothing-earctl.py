@@ -70,6 +70,7 @@ DEVICE_CODEC_LABELS = {
 CASE_CACHE_MAX_AGE = 6 * 3600
 
 ADDRESS_RE = re.compile(r"^[0-9A-Fa-f]{2}(?::[0-9A-Fa-f]{2}){5}$")
+ANSI_RE = re.compile(r"\x1b\[[0-9;]*m")
 
 
 def crc16(data: bytes) -> int:
@@ -103,7 +104,10 @@ def bluetoothctl(*args: str) -> str:
         )
     except (OSError, subprocess.SubprocessError):
         return ""
-    return result.stdout
+    # bluez colourises some listings (a connected device is printed in bold
+    # gray), even when stdout is not a terminal. Every caller parses this
+    # output, so drop the escapes here.
+    return ANSI_RE.sub("", result.stdout)
 
 
 def paired_devices() -> list[dict[str, str]]:
