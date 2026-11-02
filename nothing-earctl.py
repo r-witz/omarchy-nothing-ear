@@ -23,6 +23,8 @@ from typing import Iterable
 SOF = 0x55
 CTRL_WITH_CRC = 0x0160
 RFCOMM_CHANNEL = 15
+# CMF-branded devices (e.g. CMF Buds 2) expose the same protocol on channel 16.
+RFCOMM_CHANNELS = (RFCOMM_CHANNEL, 16)
 
 CMD_DEVICE_INFO = 0x06
 CMD_BATTERY = 0x07
@@ -222,14 +224,22 @@ def request(sock: socket.socket, parser: FrameParser, command: int, direction: i
 
 
 def open_control(address: str) -> socket.socket:
-    sock = socket.socket(socket.AF_BLUETOOTH, socket.SOCK_STREAM, socket.BTPROTO_RFCOMM)
-    sock.settimeout(2.0)
-    try:
-        sock.connect((address, RFCOMM_CHANNEL))
-    except Exception:
-        sock.close()
-        raise
-    return sock
+    last_error: Exception | None = None
+    for channel in RFCOMM_CHANNELS:
+        sock = socket.socket(socket.AF_BLUETOOTH, socket.SOCK_STREAM, socket.BTPROTO_RFCOMM)
+        sock.settimeout(2.0)
+        try:
+            sock.connect((address, channel))
+            return sock
+        except ConnectionRefusedError as exc:
+            # Nothing listening on this channel; try the next known one.
+            sock.close()
+            last_error = exc
+        except Exception:
+            sock.close()
+            raise
+    assert last_error is not None
+    raise last_error
 
 
 def unknown_component() -> dict[str, object]:
