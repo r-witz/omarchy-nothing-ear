@@ -23,8 +23,9 @@ from typing import Iterable
 SOF = 0x55
 CTRL_WITH_CRC = 0x0160
 RFCOMM_CHANNEL = 15
-# CMF-branded devices (e.g. CMF Buds 2) expose the same protocol on channel 16.
-RFCOMM_CHANNELS = (RFCOMM_CHANNEL, 16)
+# CMF-branded devices expose the same protocol elsewhere: CMF Buds 2 on 16,
+# CMF Headphone Pro on 28.
+RFCOMM_CHANNELS = (RFCOMM_CHANNEL, 16, 28)
 
 CMD_DEVICE_INFO = 0x06
 CMD_BATTERY = 0x07
